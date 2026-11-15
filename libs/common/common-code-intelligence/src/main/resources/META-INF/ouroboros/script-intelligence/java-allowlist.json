@@ -1,0 +1,9 @@
+{
+  "classes": [
+    "java.util.UUID",
+    "com.ouroboros.util.Dates",
+    "com.ouroboros.util.Converter",
+    "com.ouroboros.util.Maps"
+  ],
+  "packages": []
+}
