@@ -6,10 +6,19 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TextTemplateEngineTest {
 
   private final TextTemplateEngine engine = new TextTemplateEngine();
+
+  @Test
+  void syntaxValidationDoesNotRenderUnknownValuesOrLoadIncludes() {
+    assertDoesNotThrow(() -> engine.validateSyntax("${unknown.call()}<#include 'missing-template.ftl'>"));
+    assertThrows(freemarker.core.ParseException.class, () -> engine.validateSyntax("<#if active>${name}"));
+    assertDoesNotThrow(() -> engine.validateSyntax("<#noparse>${literal</#noparse>"));
+  }
 
   @Test
   void render_supportsPlainTextVariablesConditionsAndLoops() {

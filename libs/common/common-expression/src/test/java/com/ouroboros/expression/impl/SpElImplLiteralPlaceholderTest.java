@@ -1,13 +1,13 @@
 package com.ouroboros.expression.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.ouroboros.expression.EL;
 
@@ -51,7 +51,7 @@ public class SpElImplLiteralPlaceholderTest {
   public void missingSimpleKeyShouldStillEvaluateToNull() {
     var result = new SpElImpl().apply("${ missingKey }", Collections.emptyMap());
 
-    assertTrue(String.valueOf(result), result.isRight());
+    assertTrue(result.isRight(), String.valueOf(result));
     assertEquals(null, result.get());
   }
 
@@ -61,7 +61,7 @@ public class SpElImplLiteralPlaceholderTest {
     // 非数字的默认值必须在业务模型里写成 'EFFECTIVE' 这种带引号的字面量
     var result = new SpElImpl().apply("${ EFFECTIVE }", Collections.emptyMap());
 
-    assertTrue(String.valueOf(result), result.isRight());
+    assertTrue(result.isRight(), String.valueOf(result));
     assertEquals(null, result.get());
   }
 }

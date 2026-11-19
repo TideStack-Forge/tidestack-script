@@ -22,6 +22,15 @@ public abstract class EL implements BiFunction<String, Map<String, Object>, Eith
     return DEFAULT_EL.compileExpression(expression);
   }
 
+  /** Parse editor drafts without evaluating them or retaining them in the runtime expression cache. */
+  public static Either<Throwable, Boolean> validateSyntax(String expression) {
+    return DEFAULT_EL.validateExpressionSyntax(expression);
+  }
+
+  public Either<Throwable, Boolean> validateExpressionSyntax(String expression) {
+    return Either.left(new UnsupportedOperationException("Expression provider does not support syntax validation"));
+  }
+
   public Either<Throwable, ExpressionPlan> compileExpression(String expression) {
     return Either.left(new UnsupportedOperationException("Expression provider does not support value plans"));
   }

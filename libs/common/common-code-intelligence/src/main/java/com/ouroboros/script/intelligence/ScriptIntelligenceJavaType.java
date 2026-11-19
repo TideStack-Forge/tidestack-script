@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScriptIntelligenceJavaType {
+  private CodeCandidateOrigin origin;
   private String qualifiedName;
   private String simpleName;
   private String packageName;
@@ -11,6 +12,10 @@ public class ScriptIntelligenceJavaType {
   private List<ScriptIntelligenceMember> staticMethods = new ArrayList<>();
   private List<ScriptIntelligenceMember> staticFields = new ArrayList<>();
   private List<ScriptIntelligenceMember> instanceMethods = new ArrayList<>();
+
+  public CodeCandidateOrigin getOrigin() { return origin; }
+
+  public void setOrigin(CodeCandidateOrigin origin) { this.origin = origin; }
 
   public String getQualifiedName() {
     return qualifiedName;

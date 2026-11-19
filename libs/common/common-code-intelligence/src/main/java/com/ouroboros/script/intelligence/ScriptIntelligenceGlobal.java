@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScriptIntelligenceGlobal {
+  private CodeCandidateOrigin origin;
   private com.ouroboros.codeintelligence.type.TypeShape shape;
   private String name;
   private String kind;
@@ -12,6 +13,10 @@ public class ScriptIntelligenceGlobal {
   private String documentation;
   private String sourceTag;
   private List<ScriptIntelligenceMember> members = new ArrayList<>();
+
+  public CodeCandidateOrigin getOrigin() { return origin; }
+
+  public void setOrigin(CodeCandidateOrigin origin) { this.origin = origin; }
 
   public com.ouroboros.codeintelligence.type.TypeShape getShape() { return shape; }
 

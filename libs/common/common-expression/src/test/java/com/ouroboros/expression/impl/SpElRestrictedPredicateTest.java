@@ -3,9 +3,9 @@ package com.ouroboros.expression.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SpElRestrictedPredicateTest {
   @Test
@@ -26,8 +26,8 @@ public class SpElRestrictedPredicateTest {
         "${false and T(java.lang.System).setProperty('probe', 'changed') == null}",
         "${event.payload.clear() == null}", "${event.payload.amount = 0}",
         "${new java.util.Date() != null}", "${#external != null}", "prefix ${true}")) {
-      assertTrue(expression, engine.validatePredicateExpression(expression).isLeft());
-      assertTrue(expression, engine.evaluatePredicate(expression, Map.of("event", Map.of("payload", Map.of("amount", 1)))).isLeft());
+      assertTrue(engine.validatePredicateExpression(expression).isLeft(), expression);
+      assertTrue(engine.evaluatePredicate(expression, Map.of("event", Map.of("payload", Map.of("amount", 1)))).isLeft(), expression);
     }
     assertTrue(engine.validatePredicateExpression("${event.payload.amount >= 1}").get());
   }
@@ -42,7 +42,7 @@ public class SpElRestrictedPredicateTest {
         "objectStates", Map.of("/params/orders/0", Map.of("state", "DRAFT")))).get());
     for (String invalid : List.of("${false and request == null}", "${utils == null}",
         "${objectStates[input.params.role].state == 'DRAFT'}", "${@service != null}")) {
-      assertTrue(invalid, engine.compilePredicateExpression(invalid, java.util.Set.of("input", "objectStates")).isLeft());
+      assertTrue(engine.compilePredicateExpression(invalid, java.util.Set.of("input", "objectStates")).isLeft(), invalid);
     }
   }
 

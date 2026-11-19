@@ -176,6 +176,15 @@ public class SpElImpl extends EL {
   }
 
   @Override
+  public Either<Throwable, Boolean> validateExpressionSyntax(String expression) {
+    return Try.of(() -> {
+      // Preserve UTF-16 offsets for editor diagnostics while retaining the runtime escape semantics.
+      expressionParser.parseExpression(expression.replace("$${", "__{"), templateParserContext);
+      return true;
+    }).toEither();
+  }
+
+  @Override
   public Either<Throwable, ExpressionPlan> compileExpression(String expression) {
     return Try.<ExpressionPlan>of(() -> {
       String preprocessed = expression.replace("$${", ESCAPE_PLACEHOLDER + "{");

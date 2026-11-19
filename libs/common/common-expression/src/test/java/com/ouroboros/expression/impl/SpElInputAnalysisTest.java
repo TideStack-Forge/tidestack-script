@@ -5,18 +5,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.ouroboros.expression.EL;
 import com.ouroboros.expression.ExpressionInputReference;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SpElInputAnalysisTest {
   @Test
   public void scopedCollectionsAreExplicitlyUnsupportedInsteadOfInventingExternalRoots() {
     for (var expression : List.of("${orders.![id]}", "${orders.?[id > 1]}", "${#root.order.id}", "${#this.id}")) {
-      assertTrue(expression, EL.compile(expression).get().inputReferences().isLeft());
+      assertTrue(EL.compile(expression).get().inputReferences().isLeft(), expression);
     }
     assertEquals(List.of(1, 2), EL.compile("${orders.![id]}").get()
         .evaluate(Map.of("orders", List.of(Map.of("id", 1), Map.of("id", 2)))).get());

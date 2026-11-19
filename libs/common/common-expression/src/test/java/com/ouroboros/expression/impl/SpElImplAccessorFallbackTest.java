@@ -1,12 +1,12 @@
 package com.ouroboros.expression.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * 覆盖“缺失键导致表达式实例被永久污染”的缺陷。
@@ -75,7 +75,7 @@ public class SpElImplAccessorFallbackTest {
 
     var result = new SpElImpl().apply("${ $0.orderBy }", context(picked));
 
-    assertTrue(String.valueOf(result), result.isRight());
+    assertTrue(result.isRight(), String.valueOf(result));
     assertEquals(null, result.get());
   }
 
@@ -86,7 +86,7 @@ public class SpElImplAccessorFallbackTest {
 
     var result = new SpElImpl().apply("${ missing }", context);
 
-    assertTrue(String.valueOf(result), result.isRight());
+    assertTrue(result.isRight(), String.valueOf(result));
     assertEquals(null, result.get());
   }
 }

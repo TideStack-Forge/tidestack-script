@@ -22,12 +22,22 @@ public class TextTemplateEngine {
     this.configuration = createConfiguration();
   }
 
+  /** Parse only: no variable lookup, template processing, or include loading. */
+  public void validateSyntax(String templateText) throws IOException {
+    parse(templateText);
+  }
+
+  private Template parse(String templateText) throws IOException {
+    Objects.requireNonNull(templateText, "templateText must not be null");
+    return new Template(INLINE_TEMPLATE_NAME, new StringReader(templateText), configuration);
+  }
+
   public String render(String templateText, Map<String, ?> parameters) {
     Objects.requireNonNull(templateText, "templateText must not be null");
     Objects.requireNonNull(parameters, "parameters must not be null");
 
     try {
-      var template = new Template(INLINE_TEMPLATE_NAME, new StringReader(templateText), configuration);
+      var template = parse(templateText);
       var writer = new StringWriter();
       template.process(parameters, writer);
       return writer.toString();
